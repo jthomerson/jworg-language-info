@@ -1,0 +1,32 @@
+{
+  "name": "jworg-language-info",
+  "version": "0.1.0",
+  "description": "Simple utility for retrieving language data from jw.org, the most translated site on the internet.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jthomerson/jworg-language-info.git"
+  },
+  "keywords": [
+    "jw.org",
+    "Jehovah's Witnesses",
+    "JWs",
+    "languages",
+    "translation",
+    "Jehovah"
+  ],
+  "author": "Jeremy Thomerson",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jthomerson/jworg-language-info/issues"
+  },
+  "homepage": "https://github.com/jthomerson/jworg-language-info#readme",
+  "dependencies": {
+    "q": "^1.4.1",
+    "request": "^2.65.0",
+    "underscore": "^1.8.3"
+  }
+}
