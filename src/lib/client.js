@@ -28,7 +28,7 @@ function detailsJWORG(data) {
    return {
       total: data.languages.length,
       isSign: _.filter(data.languages, { isSignLanguage: true }).length,
-      isRTL: _.filter(data.languages, { isRTL: 'rtl' }).length,
+      isRTL: _.filter(data.languages, { direction: 'rtl' }).length,
       hasWebContent: _.filter(data.languages, { hasWebContent: true }).length,
       isSignWithWeb: _.filter(data.languages, { hasWebContent: true, isSignLanguage: true }).length,
    }
