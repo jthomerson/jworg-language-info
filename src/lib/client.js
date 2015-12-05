@@ -1,6 +1,8 @@
 var _ = require('underscore'),
     Q = require('q'),
     request = require('request'),
+    currentLocale = 'en',
+    currentLanguageCode = 'E',
     JWORG = _.template('http://www.jw.org/<%= locale %>/languages'),
     JWB = _.template('http://mediator.jw.org/v1/languages/<%= languageCode %>/<%= type %>'),
     TYPE_WEB = 'web',
@@ -45,11 +47,19 @@ function detailsJWB(data) {
 
 module.exports = {
 
+   setLanguageCode: function(languageCode) {
+      currentLanguageCode = languageCode;
+   },
+
+   setLocale: function(locale) {
+      currentLocale = locale;
+   },
+
    counts: {
 
-      jwb: function(languageCode) {
-         var web = get(JWB({ languageCode: languageCode, type: TYPE_WEB })),
-             roku = get(JWB({ languageCode: languageCode, type: TYPE_ROKU }));
+      jwb: function() {
+         var web = get(JWB({ languageCode: currentLanguageCode, type: TYPE_WEB })),
+             roku = get(JWB({ languageCode: currentLanguageCode, type: TYPE_ROKU }));
 
          return Q.all([ web, roku ])
          .spread(function(web, roku) {
@@ -60,15 +70,15 @@ module.exports = {
          });
       },
 
-      jworg: function(locale) {
-         return get(JWORG({ locale: locale }))
+      jworg: function() {
+         return get(JWORG({ locale: currentLocale }))
          .then(function(jworg) {
             return detailsJWORG(jworg.body);
          });
       },
 
-      all: function(languageCode, locale) {
-         return Q.all([ this.jwb(languageCode), this.jworg(locale) ])
+      all: function() {
+         return Q.all([ this.jwb(currentLanguageCode), this.jworg(currentLocale) ])
          .spread(function(jwb, jworg) {
             return {
                jwb: jwb,

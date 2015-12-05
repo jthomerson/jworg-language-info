@@ -1,6 +1,6 @@
 var langs = require('../src/index');
 
-langs.counts.all('E', 'en')
+langs.counts.all()
 .then(function(data) {
    console.log(data);
 
