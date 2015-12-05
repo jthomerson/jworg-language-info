@@ -45,6 +45,34 @@ function detailsJWB(data) {
    }
 }
 
+function searchLangs(langs, search, field) {
+
+   // boolean string value mapping
+   if (_.contains([ 'true', '1' ], search)) {
+      search = true;
+   } else if (_.contains([ 'false', '0', '-1' ], search)) {
+      search = false;
+   }
+
+   var pattern = new RegExp(search, 'i'),
+       matchObj = (field ? _.object([ [ field, search ] ]) : { symbol: search }),
+       strictMatcher = _.matcher(matchObj),
+       found = _.filter(langs, strictMatcher),
+       looseMatcher;
+
+   if (found.length) {
+      return found;
+   }
+
+   // need to do loose matching
+   looseMatcher = function(lang) {
+      var values = field ? [ lang[field] ] : [ lang.name, lang.vernacularName ].concat(lang.altSpellings);
+      return _.some(values, pattern.test.bind(pattern));
+   };
+
+   return _.filter(langs, looseMatcher);
+}
+
 module.exports = {
 
    setLanguageCode: function(languageCode) {
@@ -87,6 +115,16 @@ module.exports = {
          });
       }
 
+   },
+
+   info: function(search, field) {
+      return get(JWORG({ locale: currentLocale }))
+         .then(function(resp) {
+            return resp.body.languages;
+         })
+         .then(function(langs) {
+            return searchLangs(langs, search, field);
+         });
    }
 
 };
