@@ -6,6 +6,7 @@ var _ = require('underscore'),
     JWORG = _.template('http://www.jw.org/<%= locale %>/languages'),
     JWB = _.template('http://mediator.jw.org/v1/languages/<%= languageCode %>/<%= type %>'),
     TYPE_WEB = 'web',
+    TYPE_APPLETV = 'appletv',
     TYPE_ROKU = 'roku';
 
 function get(url) {
@@ -87,13 +88,15 @@ module.exports = {
 
       jwb: function() {
          var web = get(JWB({ languageCode: currentLanguageCode, type: TYPE_WEB })),
-             roku = get(JWB({ languageCode: currentLanguageCode, type: TYPE_ROKU }));
+             roku = get(JWB({ languageCode: currentLanguageCode, type: TYPE_ROKU })),
+             appletv = get(JWB({ languageCode: currentLanguageCode, type: TYPE_APPLETV }));
 
-         return Q.all([ web, roku ])
-         .spread(function(web, roku) {
+         return Q.all([ web, roku, appletv ])
+         .spread(function(web, roku, appletv) {
             return {
                web: detailsJWB(web.body),
                roku: detailsJWB(roku.body),
+               appletv: detailsJWB(appletv.body),
             };
          });
       },
