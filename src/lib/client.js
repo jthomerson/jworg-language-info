@@ -28,12 +28,14 @@ function get(url) {
 }
 
 function detailsJWORG(data) {
+   var languagesThatCount = _.filter(data.languages, { isCounted: true });
+
    return {
-      total: data.languages.length,
-      isSign: _.filter(data.languages, { isSignLanguage: true }).length,
-      isRTL: _.filter(data.languages, { direction: 'rtl' }).length,
-      hasWebContent: _.filter(data.languages, { hasWebContent: true }).length,
-      isSignWithWeb: _.filter(data.languages, { hasWebContent: true, isSignLanguage: true }).length,
+      total: languagesThatCount.length,
+      isSign: _.filter(languagesThatCount, { isSignLanguage: true }).length,
+      isRTL: _.filter(languagesThatCount, { direction: 'rtl' }).length,
+      hasWebContent: _.filter(languagesThatCount, { hasWebContent: true }).length,
+      isSignWithWeb: _.filter(languagesThatCount, { hasWebContent: true, isSignLanguage: true }).length,
    }
 }
 
