@@ -7,7 +7,11 @@ var _ = require('underscore'),
     JWB = _.template('https://data.jw-api.org/mediator/v1/languages/<%= languageCode %>/<%= type %>'),
     TYPE_WEB = 'web',
     TYPE_APPLETV = 'appletv',
-    TYPE_ROKU = 'roku';
+    TYPE_ROKU = 'roku',
+    FILTER_SIGN_LANG = { isSignLanguage: true },
+    FILTER_RTL = { direction: 'rtl' },
+    FILTER_HAS_WEB = { hasWebContent: true },
+    FILTER_SL_HAS_WEB = { hasWebContent: true, isSignLanguage: true };
 
 function get(url) {
    var def = Q.defer();
@@ -28,12 +32,22 @@ function get(url) {
 }
 
 function detailsJWORG(data) {
+   var countedLangs = _.filter(data.languages, { isCounted: true }),
+       uncountedLangs = _.difference(data.languages, countedLangs);
+
    return {
-      total: data.languages.length,
-      isSign: _.filter(data.languages, { isSignLanguage: true }).length,
-      isRTL: _.filter(data.languages, { direction: 'rtl' }).length,
-      hasWebContent: _.filter(data.languages, { hasWebContent: true }).length,
-      isSignWithWeb: _.filter(data.languages, { hasWebContent: true, isSignLanguage: true }).length,
+      total: countedLangs.length,
+      isSign: _.filter(countedLangs, FILTER_SIGN_LANG).length,
+      isRTL: _.filter(countedLangs, FILTER_RTL).length,
+      hasWebContent: _.filter(countedLangs, FILTER_HAS_WEB).length,
+      isSignWithWeb: _.filter(countedLangs, FILTER_SL_HAS_WEB).length,
+      uncounted: {
+         total: uncountedLangs.length,
+         isSign: _.filter(uncountedLangs, FILTER_SIGN_LANG).length,
+         isRTL: _.filter(uncountedLangs, FILTER_RTL).length,
+         hasWebContent: _.filter(uncountedLangs, FILTER_HAS_WEB).length,
+         isSignWithWeb: _.filter(uncountedLangs, FILTER_SL_HAS_WEB).length,
+      },
    }
 }
 
