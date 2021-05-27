@@ -4,7 +4,11 @@
   "description": "Simple utility for retrieving language data from jw.org, the most translated site on the internet.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "lint": "eslint '**/*.{ts,js}' --ignore-pattern 'dist'",
+    "commitlint": "commitlint -f 3dd75c8a759e579987d7df89e54452fb5a9c3346",
+    "standards": "npm run lint && npm run commitlint && tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -29,8 +33,11 @@
     "tslib": "2.2.0"
   },
   "devDependencies": {
+    "@silvermine/eslint-config": "3.0.1",
+    "@silvermine/standardization": "1.1.0",
     "@silvermine/typescript-config": "0.10.0",
     "@types/node-fetch": "2.5.10",
-    "typescript": "4.3.2"
+    "eslint": "6.8.0",
+    "typescript": "3.9.9"
   }
 }
