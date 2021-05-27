@@ -1,20 +1,35 @@
+#!/usr/bin/env node
+
 import { Client, formatter } from './index';
+import yargs from 'yargs';
 
 const client = new Client();
 
-if (process.argv.length > 2) {
-   const search = process.argv[2];
+function infoCommandDescription(y: yargs.Argv<{}>): yargs.Argv<{ lang: string }> {
+   return y.positional('lang', { describe: 'languge code or locale', type: 'string' }).demandOption('lang');
+}
 
-   client.info(search).then((data) => {
+async function doInfo(argv: yargs.Arguments): Promise<void> {
+   const lang = argv.lang as string;
+
+   client.info(lang).then((data) => {
       console.log(data);
    });
-} else {
-   client.all()
-      .then(function(data) {
-         console.log(JSON.stringify(data, null, 3));
-         console.log('\n---\n');
-         console.log('Short:\n' + formatter.SHORT(data));
-         console.log('\n---\n');
-         console.log('Long:\n' + formatter.LONG(data));
-      });
 }
+
+/* eslint-disable-next-line no-unused-expressions */
+yargs(process.argv.slice(2))
+   .command('info [lang]', 'get info for specified language', infoCommandDescription, doInfo)
+   .command('counts', 'get all counts', () => {
+      client.all()
+         .then(function(data) {
+            console.log(data);
+            console.log('\n---\n');
+            console.log('Short:\n' + formatter.SHORT(data));
+            console.log('\n---\n');
+            console.log('Long:\n' + formatter.LONG(data));
+         });
+   })
+   .help('h')
+   .alias('h', 'help')
+   .argv;

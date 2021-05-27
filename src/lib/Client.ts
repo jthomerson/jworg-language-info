@@ -71,7 +71,13 @@ export default class Client {
          search = 'false';
       }
 
-      const found = langs.filter((lang) => { return field ? lang[field] === search : lang.symbol === search; });
+      let found = langs.filter((lang) => { return field ? lang[field] === search : lang.symbol === search; });
+
+      if (found.length) {
+         return found;
+      }
+
+      found = langs.filter((lang) => { return field ? lang[field] === search : lang.langcode === search; });
 
       if (found.length) {
          return found;

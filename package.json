@@ -30,13 +30,15 @@
   "homepage": "https://github.com/jthomerson/jworg-language-info#readme",
   "dependencies": {
     "node-fetch": "2.6.1",
-    "tslib": "2.2.0"
+    "tslib": "2.2.0",
+    "yargs": "17.0.1"
   },
   "devDependencies": {
     "@silvermine/eslint-config": "3.0.1",
     "@silvermine/standardization": "1.1.0",
     "@silvermine/typescript-config": "0.10.0",
     "@types/node-fetch": "2.5.10",
+    "@types/yargs": "17.0.0",
     "eslint": "6.8.0",
     "typescript": "3.9.9"
   }
