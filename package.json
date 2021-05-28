@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "description": "Simple utility for retrieving language data from jw.org, the most translated site on the internet.",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
-     "jwl": "dist/cli.js",
-     "jworg-language-info": "dist/cli.js"
+    "jwl": "dist/cli.js",
+    "jworg-language-info": "dist/cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc",
+    "develop": "npm run clean && tsc --watch",
     "lint": "eslint '**/*.{ts,js}' --ignore-pattern 'dist'",
     "commitlint": "commitlint -f 3dd75c8a759e579987d7df89e54452fb5a9c3346",
     "standards": "npm run lint && npm run commitlint && tsc --noEmit",
@@ -46,6 +49,7 @@
     "@types/node-fetch": "2.5.10",
     "@types/yargs": "17.0.0",
     "eslint": "6.8.0",
+    "rimraf": "3.0.2",
     "typescript": "3.9.9"
   }
 }

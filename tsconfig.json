@@ -2,5 +2,7 @@
    "extends": "@silvermine/typescript-config/tsconfig.commonjs.json",
    "compilerOptions": {
       "outDir": "dist",
-   }
+      "declaration": true,
+   },
+   "include": [ "src/**/*.ts" ]
 }
