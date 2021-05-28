@@ -2,13 +2,19 @@
   "name": "jworg-language-info",
   "version": "0.1.0",
   "description": "Simple utility for retrieving language data from jw.org, the most translated site on the internet.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "bin": {
+     "jwl": "dist/cli.js",
+     "jworg-language-info": "dist/cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "lint": "eslint '**/*.{ts,js}' --ignore-pattern 'dist'",
     "commitlint": "commitlint -f 3dd75c8a759e579987d7df89e54452fb5a9c3346",
-    "standards": "npm run lint && npm run commitlint && tsc --noEmit"
+    "standards": "npm run lint && npm run commitlint && tsc --noEmit",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run standards"
   },
   "repository": {
     "type": "git",
