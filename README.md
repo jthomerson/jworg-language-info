@@ -17,7 +17,7 @@ $ npm i -g jworg-language-info
 To retrieve information about a certain language, use the `info` command.
 
 ```bash
-$ jwl info en
+$ jwlang info en
 [
   {
     symbol: 'en',
@@ -36,7 +36,7 @@ $ jwl info en
 You can also search by language code or a more fuzzy search against the name.
 
 ```bash
-$ jwl info arabic
+$ jwlang info arabic
 [
   {
     symbol: 'ar',
@@ -74,7 +74,7 @@ $ jwl info arabic
 To retrieve the counts for all languages enabled on jw.org use the `counts` command.
 
 ```bash
-$ jwl counts
+$ jwlang counts
 {
   jwb: {
     web: { total: 312, isSign: 50, isRTL: 8, isLangPair: 0 },

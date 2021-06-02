@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "jwl": "dist/cli.js",
+    "jwlang": "dist/cli.js",
     "jworg-language-info": "dist/cli.js"
   },
   "scripts": {
