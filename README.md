@@ -9,7 +9,7 @@ This is a simple utility for retrieving language data from [jw.org](https://www.
 ### Installation
 
 ```bash
-$ npm i -g jworg-language-info
+$ npm i -g https://github.com/jthomerson/jworg-language-info
 ```
 
 ### Langauge Info
